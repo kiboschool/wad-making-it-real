@@ -46,5 +46,11 @@ There aren't any automated tests for this exercise. You are expected to test the
 CLI yourself. If it's helpful, you can write automated tests to help you as you 
 make changes to the code.
 
-Note: you should not need to modify `main.py` -- all of the product data
-interface code is in `products.py`.
+Notes: 
+- you should not need to modify `main.py` -- all of the product data
+    interface code is in `products.py`.
+- you may find it helpful to test your queries in the sqlite console before you
+    use them in `products.py`
+- you may find it useful to set the `row_factory` of the connection object to
+    `sqlite3.Row`, so that you can access fields by name instead of by the
+    position in the tuple

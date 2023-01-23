@@ -43,7 +43,10 @@ def show_product_details():
     show_id = int(input_id)
 
     product_to_show = select_product_by_id(show_id)
-    print(product_details(product_to_show))
+    if product_to_show:
+        print(product_details(product_to_show))
+    else:
+        print("Product not found")
 
 def show_add_product():
     # get name
@@ -74,7 +77,7 @@ def search_by_price():
     print("Show products below a certain price.")
     input_price = input("Enter maximum product price: ")
     price = None
-    while not price:
+    while price == None:
         try:
             price = float(input_price)
         except:
@@ -82,9 +85,13 @@ def search_by_price():
             input_price = input("Enter maximum product price: ")
 
     
-    print(f"The products cheaper than {price} are:")
-    for product in products_cheaper_than(price):
-        print(product_details(product))
+    results = products_cheaper_than(price)
+    if results:
+        print(f"The products cheaper than {price} are:")
+        for product in results:
+            print(product_details(product))
+    else:
+        print(f"No products cheaper than {price}.")
 
 if __name__ == "__main__":
     main()
