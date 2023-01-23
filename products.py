@@ -1,26 +1,25 @@
 # Product Interface
+import sqlite3
 
-mock_data = [
-    {'id': 1, 'name': 'Product 1', 'price': 9.99, 'quantity': 10},
-    {'id': 2, 'name': 'Product 2', 'price': 19.99, 'quantity': 5},
-    {'id': 3, 'name': 'Product 3', 'price': 29.99, 'quantity': 2},
-    {'id': 4, 'name': 'Product 4', 'price': 39.99, 'quantity': 8},
-    {'id': 5, 'name': 'Product 5', 'price': 49.99, 'quantity': 15},
-    {'id': 6, 'name': 'Product 6', 'price': 59.99, 'quantity': 20},
-]
+conn = sqlite3.connect('products.db')
+conn.row_factory = sqlite3.Row
 
 def select_all_products():
-    return mock_data
+    cur = conn.execute("SELECT * FROM products")
+    return cur.fetchall()
 
 def select_product_by_id(_id):
-    return next(product for product in mock_data if product['id'] == _id)
+    cur = conn.execute("SELECT * FROM products WHERE id = ?", [_id])
+    return cur.fetchone()
 
 def products_cheaper_than(price):
-    return [product for product in mock_data if product['price'] < price]
+    cur = conn.execute("SELECT * FROM products WHERE price < ?", [price])
+    return cur.fetchall()
 
 def add_product(name, price, quantity):
-    product = {'id': len(mock_data) + 1, 'name': name, 'price': price, 'quantity': quantity}
-    mock_data.append(product)
+    product = {'name': name, 'price': price, 'quantity': quantity}
+    conn.execute("INSERT INTO products (name, price, quantity) VALUES (?, ?, ?);", [name, price, quantity]) 
+    conn.commit()
     return product
 
 def product_details(product):
