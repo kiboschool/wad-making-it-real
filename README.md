@@ -15,14 +15,36 @@ Mock data is useful in several ways when building an application:
 In this exercise, you'll take an application that uses mock data and convert it
 to one that relies actual database queries.
 
+## Starter Code
+
+Another developer has created a CLI interface in `main.py` to work with products. 
+Right now, it uses mock data to represent the products. In `products.py`, there 
+is a list called `mock_data` with dictionaries representing fake products.
+
+Run `python main.py` to see how the CLI interface works.
+
+Your ops team has also shared with you the actual database of products, a SQLite
+database in the file `products.db`.
+
+You can run `sqlite3 products.db` and runs some SQL queries to explore the
+products database.
+
+## Your Task
+
+Your job is to _make it real_. You need to swap out the functions in
+`products.py` with code that interacts with the database in `products.db`. When
+you are finished, you should be able to delete the `mock_data` list, and the CLI
+program should still work.
+
 ## Instructions
 
-1. Begin by creating a Python script that uses mock data to display a list of products. The script should define a list of dictionaries, where each dictionary represents a product and contains the following keys: id, name, price, and quantity.
-2. Next, create a SQLite database named products.db and create a table called products with the following columns: id, name, price, and quantity.
-3. Populate the products table with the mock data from the Python script.
-4. Modify the Python script to connect to the products.db database and retrieve the list of products from the products table. Use the sqlite3 module to connect to the database and execute a SELECT query to retrieve the data.
-5. Update the script to display the products from the database, instead of the mock data.
-6. Test the script to ensure that it correctly retrieves and displays the data from the products table in the database.
-7. Next, add functionality to the script such as adding new products, updating product details and deleting products from the database.
-8. Finally, write test cases to check the correctness of the application using the unittest library.
+1. Modify the Python script to connect to the `products.db` database and retrieve the list of products from the `products` table. 
+2. Update the script to display the products from the database, instead of the mock data.
+3. Test the script to ensure that it correctly retrieves and displays the data from the products table in the database. Run `python main.py` and try out each of the CLI options.
 
+There aren't any automated tests for this exercise. You are expected to test the
+CLI yourself. If it's helpful, you can write automated tests to help you as you 
+make changes to the code.
+
+Note: you should not need to modify `main.py` -- all of the product data
+interface code is in `products.py`.
